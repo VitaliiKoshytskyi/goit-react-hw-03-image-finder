@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 import { getImages } from './services/getFetch';
-import { ColorRing } from 'react-loader-spinner';
+import Loader from './Loader/Loader';
 import Button from './Button/Button';
 import Searchbar from './Searchbar/Searchbar';
 
@@ -59,17 +59,7 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={ this.updateSearch} />
         {error && <p>{error}</p>}
-        {isLoading && (
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-          />
-        )}
+        {isLoading && (<Loader />)}
         {images.length > 0 && (
           <>
             <ImageGallery images={images} />
