@@ -27,7 +27,7 @@ export class App extends Component {
   }
 
   updateSearch =(search) => {
-  this.setState({search})
+  this.setState({search,images:[], page:1})
 }
 
 
