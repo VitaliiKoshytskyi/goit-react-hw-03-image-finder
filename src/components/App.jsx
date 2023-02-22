@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { getImages } from './services/getFetch';
 import { ColorRing } from 'react-loader-spinner';
 import Button from './Button/Button';
+import Searchbar from './Searchbar/Searchbar';
 
 import ImageGallery from './ImageGallery/ImageGallery';
 
@@ -12,26 +13,33 @@ export class App extends Component {
     isLoading: false,
     error: null,
     page: 1,
+    search:''
   };
-  componentDidMount() {
-    this.fetchData();
-  }
+  
 
   componentDidUpdate(_, prevState) {
-    if (prevState.page !== this.state.page) {
-      this.fetchData();
+    const { search, page } = this.state
+    if (search !== prevState.search || page !==prevState.page )  {
+      
+      this.fetchData()
     }
+   
   }
 
+  updateSearch =(search) => {
+  this.setState({search})
+}
+
+
   async fetchData() {
-    const { page } = this.state;
+    const { page ,search} = this.state;
     console.log(page);
     try {
       this.setState({ isLoading: true });
-      const { data } = await getImages(page);
+      const { data } = await getImages(page,search);
       this.setState(prevState => ({
         images: [...prevState.images, ...data.hits],
-        loading: false,
+        
       }));
     } catch (error) {
       this.setState({ error: error.message || 'Oooopppsss! Try again' });
@@ -49,6 +57,7 @@ export class App extends Component {
     console.log(images);
     return (
       <>
+        <Searchbar onSubmit={ this.updateSearch} />
         {error && <p>{error}</p>}
         {isLoading && (
           <ColorRing
