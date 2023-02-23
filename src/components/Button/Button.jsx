@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import css from './Button.module.css'
 
 const Button = ({children,onBtnClick,type ='button'}) => {
@@ -9,3 +9,9 @@ const Button = ({children,onBtnClick,type ='button'}) => {
     )
 }
 export default Button
+
+
+Button.propTypes = {
+    onBtnClick: PropTypes.func.isRequired,
+   
+};
