@@ -15,7 +15,8 @@ export class App extends Component {
     error: null,
     page: 1,
     search: '',
-    showModal:false,
+    showModal: false,
+    imageDetails:{}
   };
   
 
@@ -28,9 +29,13 @@ export class App extends Component {
    
   }
 
-  showModal =()=> {
+  showModal =({largeImageURL,tag})=> {
     this.setState({
-     showModal:true
+      showModal: true,
+      imageDetails: {
+        largeImageURL,
+        tag,
+      }
     })
   }
 
@@ -67,12 +72,12 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading, error,showModal } = this.state;
+    const { images, isLoading, error,showModal,imageDetails } = this.state;
     
     return (
       <>
         {showModal && <Modal closeModal={this.closeModal}>
-        <img src='#' alt="#" />
+        <img src={imageDetails.largeImageURL} alt={imageDetails.tag} />
         </Modal>}
         <Searchbar onSubmit={ this.updateSearch} />
         {error && <p>{error}</p>}

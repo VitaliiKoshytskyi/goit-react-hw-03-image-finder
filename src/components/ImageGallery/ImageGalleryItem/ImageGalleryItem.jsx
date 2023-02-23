@@ -4,7 +4,7 @@ import css from './ImageGalleryItem.module.css'
 
 const ImageGalleryItem = ({ tag,webformatURL,showModal,largeImageURL}) => {
   return (
-    <li className={css.ImageGalleryItem} onClick={() => showModal()}>
+    <li className={css.ImageGalleryItem} onClick={() => showModal({largeImageURL,tag})}>
           <img className={css.ImageGalleryItem_image} src={webformatURL} alt={tag}  />
     </li>
   );
