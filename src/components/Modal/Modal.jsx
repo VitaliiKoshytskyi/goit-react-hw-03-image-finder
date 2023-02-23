@@ -8,16 +8,16 @@ const modalRoot = document.getElementById('modal-root');
 class Modal extends Component {
 
     componentDidMount() {
-    document.body.addEventListener('keydown',)
+    document.body.addEventListener('keydown', this.handleClose)
     }
     componentWillUnmount() {
-        document.body.removeEventListener('keydown',)
+        document.body.removeEventListener('keydown',this.handleClose)
     }
 
 
 
     handleClose = (event) => {
-        if (event.target === event.currentTarget) {
+        if (event.target === event.currentTarget || event.code ==='Escape') {
             this.props.closeModal()
         }
     
