@@ -4,6 +4,7 @@ import { getImages } from './services/getFetch';
 import Loader from './Loader/Loader';
 import Button from './Button/Button';
 import Searchbar from './Searchbar/Searchbar';
+import Modal from './Modal/Modal';
 
 import ImageGallery from './ImageGallery/ImageGallery';
 
@@ -13,7 +14,8 @@ export class App extends Component {
     isLoading: false,
     error: null,
     page: 1,
-    search:''
+    search: '',
+    showModal:false,
   };
   
 
@@ -24,6 +26,18 @@ export class App extends Component {
       this.fetchData()
     }
    
+  }
+
+  showModal =()=> {
+    this.setState({
+     showModal:true
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      showModal:false
+    })
   }
 
   updateSearch =(search) => {
@@ -53,16 +67,19 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading, error } = this.state;
-    console.log(images);
+    const { images, isLoading, error,showModal } = this.state;
+    
     return (
       <>
+        {showModal && <Modal closeModal={this.closeModal}>
+        <img src='#' alt="#" />
+        </Modal>}
         <Searchbar onSubmit={ this.updateSearch} />
         {error && <p>{error}</p>}
         {isLoading && (<Loader />)}
         {images.length > 0 && (
           <>
-            <ImageGallery images={images} />
+            <ImageGallery images={images} showModal={this.showModal} />
             <Button onBtnClick={this.loadMoreHandle}> Load more</Button>
           </>
         )}
