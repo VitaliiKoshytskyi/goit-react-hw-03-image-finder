@@ -75,6 +75,7 @@ export class App extends Component {
       totalImages,
       page,
     } = this.state;
+    
 
     return (
       <>
@@ -89,6 +90,7 @@ export class App extends Component {
         {images.length > 0 && (
           <ImageGallery images={images} showModal={this.showModal} />
         )}
+        {totalImages===0 && <p>Ooopps! we found nothing</p>}
         {totalImages > page * 12 && (
           <Button onBtnClick={this.loadMoreHandle}> Load more</Button>
         )}
